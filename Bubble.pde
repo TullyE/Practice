@@ -1,4 +1,4 @@
-
+static int total_id; //static used for if hit is it more efficeint?¸
 class Bubble
 {
   private int id;
@@ -9,10 +9,12 @@ class Bubble
   private boolean black;
   private int xDir;
   private int xMoves;
-  static int total_id; //static used for if hit is it more efficeint?
+  private boolean flagFR;
+
 
   Bubble(int _x, int radius)
   {
+    flagFR = false;
     this.x = _x;
     this.y = (int) (Math.random() * 500);
     this.radius = radius;
@@ -61,18 +63,17 @@ class Bubble
     }
   }
 
-  boolean check(Bubble b)
+  void check(ArrayList<Bubble> ml)
   {
     double distance;
-    distance = dist(this.x, this.y, b.getX(), b.getY());
-    if ((distance < this.radius + b.getRad()) && b.getId() != this.id)
+    for (Bubble b : ml)
     {
-      black = true;
-      b.setBlack(true);
-      return true;
-    } else
-    {
-      return false;
+      distance = dist(this.x, this.y, b.getX(), b.getY());
+      if ((distance < this.radius + b.getRad()) && b.getId() != this.id)
+      {
+        b.setRemove(true);
+        setRemove(true);
+      }
     }
   }
 
@@ -84,6 +85,16 @@ class Bubble
   int getX()
   {
     return this.x;
+  }
+  
+  void setRemove(boolean f)
+  {
+    flagFR = f;
+  }
+  
+  boolean getRemove()
+  {
+    return flagFR;
   }
 
   int getY()
