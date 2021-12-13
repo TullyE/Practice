@@ -25,6 +25,8 @@ void draw()
     b.move();
     b.show();
   }
+  fill(0);
+  text("Num of Bubbles: " + myB.size(), 10, height-10);
 }
 
 
